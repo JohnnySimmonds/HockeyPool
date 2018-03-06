@@ -1,0 +1,62 @@
+{% extends 'base.twig' %}
+
+
+{% block primary_content %}
+
+<div class="row">
+    <div class="well bs-component" style="opacity:.9;">
+    	<form class="form-horizontal" action="login.php" method="post">
+     		<fieldset>
+                 <legend><h2 class="">Sign In</h2></legend>
+                
+            	<div class="form-group">
+             		<div class="input-group">
+                		<span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+             			<input type="email" name="email" class="form-control" placeholder="Your Email" maxlength="40" />
+               		</div>
+                	<span class="text-danger"></span>
+                </div>
+                
+                <div class="form-group">
+                	<div class="input-group">
+                		<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                 		<input type="password" name="pass" class="form-control" placeholder="Your Password" maxlength="15" />
+                    </div>
+                    <span class="text-danger"></span>
+                </div>
+                
+                
+                {%  if error  %}
+        			<div class="form-group">
+        				<div class="alert alert-danger  col-lg-offset-1 col-lg-10">
+        					<p><span class="glyphicon glyphicon-info-sign"></span>{{ error }}</p>
+                    	</div>
+                 	</div>
+    		    {%  endif %}
+                {%  if register_redirect  %}
+        			<div class="form-group">
+                     	<div class="alert alert-success col-lg-offset-1 col-lg-10">
+            				<p><span class="glyphicon glyphicon-info-sign"></span>  Registration successful, please log in.</p>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if login_required %}
+                	<div class="form-group">
+                     	<div class="alert alert-success col-lg-offset-1 col-lg-10">
+            				<p><span class="glyphicon glyphicon-info-sign"></span>  You must be logged in to view that page.</p>
+                        </div>
+                    </div>
+                {%  endif %}
+                         
+                <div class="form-group">
+                	<div class='col-md-3 col-md-offset-4' style="text-align:center;">
+                 		<button type="submit" class="btn btn-block btn-primary" name="btn-login">Sign In</button>
+                 		<br/>
+                 		<a href="register.php">Sign Up Here</a>
+             		</div>
+                </div>
+            </fieldset>
+       	</form>
+    </div>
+</div>
+{% endblock %}

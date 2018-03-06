@@ -1,0 +1,58 @@
+{% extends 'base.twig' %}
+
+
+{% block primary_content %}
+
+<div class="bs-component">
+	<h1>
+        Pool Name: {{ pool_name }}
+    </h1>
+    <h5><span style="color:lightgreen;" class="glyphicon glyphicon-king"></span> indicates the leader of the pool.</h5>
+</div>
+
+<div class="bs-component">
+	<div class="onHover">
+		<table id = "displayPoolTable" class="table table-striped table-hover">
+			<thead class="thead-inverse">
+				<tr class="success">
+					<th style="width:25%; text-align:center;">Owner Name</th>
+					<th style="width:25%; text-align:center;">Team Name</th>
+					<th style="width:25%; text-align:center;">Fantasy points</th>
+				</tr>
+			</thead>
+			{% for teams in teams_in_pool%}
+			<tr>
+				<td>{% if teams.pool_leader == 1 %}<span style="color:lightgreen;" class="glyphicon glyphicon-king"></span>{% endif %}  {{ teams.name }}</td>
+				<td>{% if teams.team_name is null %}No team yet{% else %}<a style="color:lightblue;" href="team.php?oid={{ teams.owner_id }}&pid={{ pool_id }}">{{teams.team_name}}</a>{% endif %}</td>
+				<td>{{ teams.FantasyPoints | number_format(2, '.' ,',') }}</td>
+			</tr>
+			{% endfor %}
+
+		</table>
+	</div>
+</div>
+
+{% if am_leader == 1 %}
+		<form action = "addOwner.php" method = "post">
+			<input type = "hidden" value = "{{ pool_id }}" name = "pool_id">
+			<input type = "email" required placeholder = "Enter Email" name = "email">
+			<input type = "submit" value = "Add Owner" class="btn btn-primary" >
+		</form>
+{% endif %}
+		
+		
+	
+
+</html>
+
+{% endblock %}
+{% block extra_scripts %}
+<script>
+$(document).ready(function(){
+	$('#displayPoolTable').DataTable({
+			"order": [[ 2, "desc"]]
+		});
+})
+</script>
+
+{%  endblock %}
